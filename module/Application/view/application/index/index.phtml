@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-12">
+        <form action="/twitter" class="form">
+            <div class="form-group">
+                <label for="profile">profile</label>
+                <input type="text" id="profile" name="profile" class="form-control">
+                <input type="submit" value="submit" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+</div>
+<?= $this->inlineScript()->captureStart(); ?>
+echo <<<JS
+    console.log('teste');
+JS
+<?= $this->inlineScript()->captureEnd(); ?>
+
