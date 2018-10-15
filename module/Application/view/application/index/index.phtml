@@ -8,10 +8,31 @@
             </div>
         </form>
     </div>
+    <div class="col-md-12 hidden" id="address">
+        <dl>
+            <dt>Location</dt>
+            <dd id="location"></dd>
+            <dt>Link</dt>
+            <dd><a href="" id="link" target="_blank">Link to Google Maps</a></dd>
+        </dl>
+    </div>
 </div>
 <?= $this->inlineScript()->captureStart(); ?>
-echo <<<JS
-    console.log('teste');
-JS
-<?= $this->inlineScript()->captureEnd(); ?>
+    $('.form').submit(function(e){
+        e.preventDefault();
+        $('#address').addClass('hidden');
+        var username = $('#profile').val()
 
+        $.ajax({
+            type: 'GET',
+            url: '/twitter/' + username,
+            dataType: 'json'
+        }).fail(function(){
+            alert('Usuário não encontrado');
+        }).done(function(data) {
+            $('#address').removeClass('hidden');
+            $('#location').html(data.placeName);
+            $('#link').attr('href', data.link);
+        })
+    });
+<?= $this->inlineScript()->captureEnd(); ?>
